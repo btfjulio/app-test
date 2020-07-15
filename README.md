@@ -24,3 +24,10 @@ Listing articel feature test
 - list the two articles
 
 - expect botha article titlea and body to be present
+
+Show article feature test
+
+- create branch
+- create 1 article to display
+
+- show article 
