@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row">
+      <% flash.each do |key, message| %>
+        <div class="panel panel-danger col-md-12">
+          <div class="panel-body text-center alert<%= key == 'notice' ? 'success': 'danger' %>">
+            <%= message %>
+          </div>
+        </div>
+      <% end %>
+  </div>
+</div>
