@@ -23,6 +23,21 @@ before_action :set_article, only: [:show]
     end
   end
 
+  def edit
+    @article = Article.find(params[:id])
+  end
+
+  def update
+    @article = Article.find(params[:id])
+    if @article.update(article_params)
+      flash[:success] = 'Article has been updated'
+      redirect_to @article
+    else
+      flash.now[:error] = 'Article has not been updated'
+      render 'new'
+    end
+  end
+  
   protected
 
   def resource_not_found
