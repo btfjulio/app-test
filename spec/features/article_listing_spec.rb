@@ -6,7 +6,6 @@ RSpec.feature "Creating Articles" do
       email: "john@example.com",
       password: "password"
     )
-    login_as(@john)
     @article1 = Article.create(
       title: "The first article",
       body: "Lorem ipsum dolor sit amet, consectetyr.",
@@ -30,6 +29,33 @@ RSpec.feature "Creating Articles" do
     expect(page).to have_link(@article1.title)
     expect(page).to have_link(@article2.title)
   end
+
+  scenario "With articles created and user not signed in" do
+    visit "/"
+
+    expect(page).to have_content(@article1.title)
+    expect(page).to have_content(@article2.body)
+    expect(page).to have_content(@article1.title)
+    expect(page).to have_content(@article2.body)
+    expect(page).to have_link(@article1.title)
+    expect(page).to have_link(@article2.title)
+    expect(page).not_to have_link("New article")
+  end
+
+
+  scenario "With articles created and user signed in" do
+    login_as(@john)
+    visit "/"
+
+    expect(page).to have_content(@article1.title)
+    expect(page).to have_content(@article2.body)
+    expect(page).to have_content(@article1.title)
+    expect(page).to have_content(@article2.body)
+    expect(page).to have_link(@article1.title)
+    expect(page).to have_link(@article2.title)
+    expect(page).to have_link("New article")
+  end
+
 
 
   scenario "A user has no articles" do
